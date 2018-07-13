@@ -1,0 +1,322 @@
+{
+    "qid": "sfq_6452",
+    "text": "When suffix letters were first used on British car registration plates the letter was used for a calendar year, later, to suit the car industry, the letter changed on August 1 each year, * letter was consequently used for only seven months",
+    "triples": {
+        "original": [
+            "suffix letters",
+            "were used",
+            "on British car registration plates"
+        ],
+        "processed_left": {
+            "entities": [
+                {
+                    "ent_id": 52150,
+                    "text": "suffix letter",
+                    "token_start": 0,
+                    "token_end": 2
+                }
+            ]
+        },
+        "processed_right": {
+            "entities": [
+                {
+                    "ent_id": 771,
+                    "text": "british",
+                    "token_start": 1,
+                    "token_end": 2,
+                    "label": "NORP"
+                },
+                {
+                    "ent_id": 52151,
+                    "text": "british car registration plate",
+                    "token_start": 1,
+                    "token_end": 5
+                }
+            ]
+        },
+        "processed_middle": {
+            "text": "be use",
+            "rel_id": 72
+        },
+        "combinations": [
+            [
+                52150,
+                72,
+                771
+            ],
+            [
+                52150,
+                72,
+                52151
+            ]
+        ]
+    },
+    "context": [
+        [],
+        [
+            "T:first"
+        ],
+        [
+            "L:on British car registration plates"
+        ],
+        []
+    ],
+    "relevance_score": 0.92,
+    "index": 271
+}
+{
+    "qid": "odql_7470",
+    "text": "* film starring Will Smith, Bill Pullman and Jeff Goldblum was the world's highest grossing film of 1996",
+    "triples": {
+        "original": [
+            "* film starring Jeff Goldblum",
+            "was",
+            "the world 's highest grossing film of 1996"
+        ],
+        "processed_left": {
+            "entities": [
+                {
+                    "ent_id": 49216,
+                    "text": "jeff goldblum",
+                    "token_start": 3,
+                    "token_end": 5,
+                    "label": "PERSON"
+                },
+                {
+                    "ent_id": 51359,
+                    "text": "* film",
+                    "token_start": 0,
+                    "token_end": 2
+                }
+            ]
+        },
+        "processed_right": {
+            "entities": [
+                {
+                    "ent_id": 14866,
+                    "text": "1996",
+                    "token_start": 7,
+                    "token_end": 8,
+                    "label": "DATE"
+                },
+                {
+                    "ent_id": 52299,
+                    "text": "the world 's high grossing film",
+                    "token_start": 0,
+                    "token_end": 6
+                }
+            ]
+        },
+        "processed_middle": {
+            "text": "be",
+            "rel_id": 10
+        },
+        "combinations": [
+            [
+                49216,
+                10,
+                14866
+            ],
+            [
+                49216,
+                10,
+                52299
+            ],
+            [
+                51359,
+                10,
+                14866
+            ],
+            [
+                51359,
+                10,
+                52299
+            ]
+        ]
+    },
+    "context": [
+        [],
+        [],
+        [],
+        []
+    ],
+    "relevance_score": 0.96,
+    "index": 413
+}
+{
+    "qid": "qz_4056",
+    "text": "* is the name of the enzyme usually added to milk to coagulate it, to make \"curds and whey\"",
+    "triples": {
+        "original": [
+            "the enzyme",
+            "added",
+            "to milk"
+        ],
+        "processed_left": {
+            "entities": [
+                {
+                    "ent_id": 47926,
+                    "text": "the enzyme",
+                    "token_start": 0,
+                    "token_end": 2
+                }
+            ]
+        },
+        "processed_right": {
+            "entities": [
+                {
+                    "ent_id": 4325,
+                    "text": "milk",
+                    "token_start": 1,
+                    "token_end": 2
+                }
+            ]
+        },
+        "processed_middle": {
+            "text": "add",
+            "rel_id": 500
+        },
+        "combinations": [
+            [
+                47926,
+                500,
+                4325
+            ]
+        ]
+    },
+    "context": [
+        [],
+        [
+            "T:usually"
+        ],
+        [],
+        []
+    ],
+    "relevance_score": 0.93,
+    "index": 26
+}
+{
+    "qid": "dpql_4590",
+    "text": "Plato and Xenophon were both pupils of * Greek philosopher",
+    "triples": {
+        "original": [
+            "Xenophon",
+            "were",
+            "pupils of * Greek philosopher"
+        ],
+        "processed_left": {
+            "entities": [
+                {
+                    "ent_id": 27286,
+                    "text": "xenophon",
+                    "token_start": 0,
+                    "token_end": 1
+                }
+            ]
+        },
+        "processed_right": {
+            "entities": [
+                {
+                    "ent_id": 2349,
+                    "text": "pupil",
+                    "token_start": 0,
+                    "token_end": 1
+                },
+                {
+                    "ent_id": 3415,
+                    "text": "greek",
+                    "token_start": 3,
+                    "token_end": 4,
+                    "label": "NORP"
+                },
+                {
+                    "ent_id": 51359,
+                    "text": "* greek philosopher",
+                    "token_start": 2,
+                    "token_end": 5
+                }
+            ]
+        },
+        "processed_middle": {
+            "text": "be",
+            "rel_id": 10
+        },
+        "combinations": [
+            [
+                27286,
+                10,
+                51359
+            ],
+            [
+                27286,
+                10,
+                2349
+            ],
+            [
+                27286,
+                10,
+                3415
+            ]
+        ]
+    },
+    "context": [
+        [],
+        [],
+        [],
+        []
+    ],
+    "relevance_score": 0.91,
+    "index": 81
+}
+{
+    "qid": "tb_1852",
+    "text": "* 1989 music video of Madonna attracted criticism for showing images like her making love to Saint Martin de Porres, use of Catholic iconography including a scene where she develops stigmata as well as cross burning",
+    "triples": {
+        "original": [
+            "she",
+            "develops",
+            "a scene"
+        ],
+        "processed_left": {
+            "entities": [
+                {
+                    "ent_id": 1,
+                    "text": "-PRON-",
+                    "token_start": 0,
+                    "token_end": 1
+                }
+            ]
+        },
+        "processed_right": {
+            "entities": [
+                {
+                    "ent_id": 23074,
+                    "text": "a scene",
+                    "token_start": 0,
+                    "token_end": 2
+                }
+            ]
+        },
+        "processed_middle": {
+            "text": "develop",
+            "rel_id": 171
+        },
+        "combinations": [
+            [
+                1,
+                171,
+                23074
+            ]
+        ]
+    },
+    "context": [
+        [],
+        [],
+        [
+            "L:a scene"
+        ],
+        []
+    ],
+    "relevance_score": 0.55,
+    "index": 366
+}

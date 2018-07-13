@@ -1,0 +1,964 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block 'header' %}
+    <style>
+        .row {
+        }
+
+        .demo_row {
+            margin-bottom: 15px;
+        }
+
+        textarea.form-control {
+            height: 200px;
+        }
+
+        .btn-default {
+            background-color: #eee;
+        }
+
+        .myscroll {
+            overflow-y: auto;
+            height: 250px;
+        }
+
+    </style>
+    <style type="text/css">
+        .container_tab {
+            display: inline-block;
+            margin: 0 20%;
+        }
+
+        .container_wrapper {
+            padding: 6px 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        #container {
+            max-width: 100%;
+            height: 550px;
+            margin: auto;
+        }
+
+        #container2 {
+            max-width: 100%;
+            height: 550px;
+            margin: auto;
+        }
+    </style>
+    <script type="text/javascript">
+        var testval = 1;
+    </script>
+
+{% endblock %}
+{% block 'body' %}
+
+
+
+
+    <center>
+        <div class="col-lg-12">
+            <h1>엑소브레인 과제 3세부</h1>
+        </div>
+
+        <div class="col-lg-10 col-lg-offset-1">
+            <ul class="nav nav-tabs" id="exoTab">
+                <li role="presentation" class="active"><a href="#" class="btn-secondary" id="btn_demo">데모</a></li>
+                <li role="presentation"><a href="#" class="btn-secondary" id="btn_data1">데이터 다운로드 1</a></li>
+                <li role="presentation"><a href="#" class="btn-secondary" id="btn_data2">데이터 다운로드 2</a></li>
+                <li role="presentation"><a href="#" class="btn-secondary" id="btn_data3">데이터 다운로드 3</a></li>
+                <li role="presentation"><a href="#" class="btn-secondary" id="btn_data4">데이터 다운로드 4</a></li>
+                <li role="presentation"><a href="#" class="btn-secondary" id="btn_data5">데이터 다운로드 5</a></li>
+            </ul>
+        </div>
+
+
+        {#        <li class="active"> 데모 </li>#}
+        {#        <li> 데이터 다운로드 </li>#}
+        {#        <li><button type="button" class="btn btn-secondary" id="btn_demo" style="margin-bottom: 10px;">데모</button></li>#}
+        {#        <li><button type="button" class="btn btn-secondary" id="btn_data1" style="margin-bottom : 10px;">데이터 다운로드</button></li>#}
+
+    </center>
+
+
+    <div class="container">
+
+        <div class="row">
+            <div class="col-lg-10 col-lg-offset-1" id="page_demo">
+                <div class="demo_row" style="position: relative;">
+                    <h3 style="display: block; text-align: center">CGQA Architecture V0: DEMO</h3>
+                    <button type="button" class="btn btn-success pull-right" data-toggle="modal" data-target="#myModal"
+                            style="position:absolute; top:0; right:0;">안내</button>
+                </div>
+
+                <div class="row demo_row" style="clear: both;">
+                    <div class="col-lg-10">
+                        <!--임의 수정
+                        <select class="form-control" name="query" id="query_list" onchange="query_changed(this)">
+                            <option value="{{ selected_question_id }}">{{ selected_question_text }}</option>
+                            {% for question in questions %}
+                                <option value="{{ question.id }}">{{ question.text }}</option>
+                            {% endfor %}
+                        </select>
+                        -->
+
+
+                        <select class="form-control" name="query" id="query_list" onchange="query_changed2(this)">
+                            <option value="{{ selected_question_id2 }}">{{ selected_question_text2 }}</option>
+                            {% for question in questions2 %}
+                                <option value="{{ question.id }}">{{ question.text }}</option>
+                            {% endfor %}
+                        </select>
+
+                    </div>
+                    <div class="col-lg-2">
+                        <a id="button_a" href="">
+                            <button class="btn btn-block btn-primary" id="cgqa_at_once">실행</button>
+                        </a>
+                    </div>
+                </div>
+                <div class="row demo_row">
+                    <div class="col-lg-12">
+
+                        <!--<div class="row">-->
+                        <!--<div class="col-lg-12">-->
+                        <!--<button class="btn btn-block btn-default" id="decomposed_answer_title">▼ Decomposed Questions ▼</button>-->
+                        <!--<div id="decomposed_question_result" class="form-control myscroll" rows="1">-->
+                        <!--{% for decomposed_text in decomposed %}-->
+                            <!--{{ decomposed_text }} <br>-->
+                            <!--{% endfor %}-->
+                        <!--</div>-->
+                        <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="row">-->
+                        <!--<div class="col-lg-12">-->
+                        <!--<button class="btn btn-block btn-default" id="pos_tagging">▼ POS tagging ▼</button>-->
+                        <!--<div id="pos_tagging_result" class="form-control myscroll" rows="1">-->
+                        <!--{% for decomposed_text in decomposed %}-->
+                            <!--{{ decomposed_text.pos_tagging }} <br>-->
+                            <!--{% endfor %}-->
+                        <!--</div>-->
+                        <!--</div>-->
+                        <!--</div>-->
+                        <div class="row demo_row">
+                            <div class="col-lg-12">
+                                <button class="btn btn-block btn-default" id="query_graph">▼ Query Graph ▼</button>
+                                <div class="container_wrapper">
+                                    <!-- 임의 수정 
+                                    {% if question.answer_type == 'Who' %}
+                                        Answer Type : <b>Person</b>
+                                    {% elif question.answer_type == 'Where' %}
+                                        Answer Type : <b>Location</b>
+                                    {% elif question.answer_type == 'Date' %}
+                                        Answer Type : <b>Time</b>
+                                    {% else %}
+                                        Answer Type : <b>Other</b>
+                                    {% endif %}
+                                    -->
+
+                                    <div id="container"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row demo_row">
+                            <div class="col-lg-12">
+                                <button class="btn btn-block btn-default" id="query_graph2">▼ CGKB ▼</button>
+                                <div class="container_wrapper">
+                                    <div id="container2"></div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row demo_row">
+                            <div class="col-lg-6">
+                                <button class="btn btn-block btn-default" id="pred_answer_title">▼ Predicted Answer
+                                    Candidates ▼
+                                </button>
+
+                                <div id="pred_answer_result" class="form-control myscroll" rows="10">
+                                    <!--임의 수정
+                                    {% for candidate in candidates %}
+                                        {% if candidate.1 == True %}
+                                            <b><p style="color:blue;"> {{ candidate.0 }} </p></b>
+                                        {% else %}
+                                            <p style="color:red;"> {{ candidate.0 }} </p>
+                                        {% endif %}
+                                    {% endfor %}
+                                    -->
+                                    {% for candidate in candidates2 %}
+                                        {% if candidate.1 == True %}
+                                            <b><p style="color:blue;"> {{ candidate.0 }} </p></b>
+                                        {% else %}
+                                            <p style="color:red;"> {{ candidate.0 }} </p>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <button class="btn btn-block btn-default" id="gold_answer_title">▼ Gold Answers ▼
+                                </button>
+                                <div id="gold_answer_result" class="form-control myscroll" rows="2">
+                                    <!--임의 수정
+                                    {% for gold_answer in gold_answers %}
+                                        <p> {{ gold_answer }} </p>
+                                    {% endfor %}
+                                    -->
+                                    {% for gold_answer in gold2 %}
+                                        <p> {{ gold_answer }} </p>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-10 col-lg-offset-1" id="page_data1" style="display: none;">
+                <div id="contents">
+
+                    <div class="con_area">
+
+                        <div class="bg_area ng-scope" align="center">
+                            <h3>영문 위키피디아 문서를 이용해 학습한 개념들의 임베딩*</h3>
+                            <h5>*임베딩 : 문서를 구성하는 하나의 단어를 수치화하는 방법의 일종</h5>
+                            <a href="./static/concept_data.zip" download="concept_data.zip"><button type="button" class="btn btn-danger btn-lg">다운로드</button></a>
+                        </div>
+
+                        <tbody class="writing">
+                        <p>
+                        </p>
+                        <p>
+                            <span
+                                    style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 12pt;">◆ </span>
+                            <strong><span
+                                    style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 12pt;">데이터 정보</span></strong>
+                        </p>
+                        <p style="line-height: 1.8;">
+                            <table class="__se_tbl"
+                                   style="border-width: 1px 1px 0px 0px; border-style: solid solid none none; border-color: rgb(204, 204, 204) rgb(204, 204, 204) currentColor currentColor; border-image: none; width: 100%"
+                                   border="0" cellspacing="0" cellpadding="0">
+                                <tbody>
+                                <tr>
+                                    <td style="border-width: 0px 0px 1px 1px; border-style: none none solid solid; border-color: currentColor currentColor rgb(204, 204, 204) rgb(204, 204, 204); border-image: none; width: 20%; height: 40px; background-color: rgb(235, 235, 235);">
+                        <p align="center" style="text-align: center;"><strong><span
+                                style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 10pt;">&nbsp;구축 건수</span></strong>
+                        </p>
+                        </td>
+                        <td style="border-width: 0px 0px 1px 1px; border-style: none none solid solid; border-color: currentColor currentColor rgb(204, 204, 204) rgb(204, 204, 204); border-image: none; width: 80%; height: 40px; background-color: rgb(255, 255, 255);">
+                            <p align="center" style="text-align: center;"><span
+                                    style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 10pt;">&nbsp;</span><span
+                                    style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 10pt;">32,651,644 개념</span>
+                            </p></td>
+                        </tr>
+                        <tr>
+                            <td style="border-width: 0px 0px 1px 1px; border-style: none none solid solid; border-color: currentColor currentColor rgb(204, 204, 204) rgb(204, 204, 204); border-image: none; width: 20%; height: 40px; background-color: rgb(235, 235, 235);">
+                                <p align="center" style="text-align: center;"><strong><span
+                                        style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 10pt;">&nbsp;데이터 구조</span></strong>
+                                </p>
+                            </td>
+                            <td style="border-width: 0px 0px 1px 1px; border-style: none none solid solid; border-color: currentColor currentColor rgb(204, 204, 204) rgb(204, 204, 204); border-image: none; width: 80%; height: 40px; background-color: rgb(255, 255, 255);">
+                                <p align="center" style="text-align: center;"><span
+                                        style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 10pt;">&nbsp;</span>
+                                    <span style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 10pt;">-개념(단어)</span><br>
+                                    <span style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 10pt;">-임베딩(50차원)</span>
+
+                                </p></td>
+                        </tr>
+                        </tbody>
+                        </table>
+                        </p>
+                        <p><br></p>
+                        <p><span
+                                style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 12pt;">◆ </span><strong><span
+                                style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 12pt;">데이터 설명</span></strong>
+                        </p>
+                        <p><strong></strong></p>
+
+                        <p style="line-height: 1.8;"><span
+                                style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 10pt;">□ 개요 <br>
+ &nbsp;&nbsp;o 문서 속의 맥락을 인지하기 위하여, 문서 내에 등장하는 개별 개념 단어들을 50차원의 벡터로 임베딩하는 학습 모델을시킨 결과물<br>
+<br>
+□ 세부내용<br>
+ &nbsp;&nbsp;o 임베딩 목표로 하는 개념을 정의하는 문서가 있는 경우에는 임베딩 방법론으로 Paragraph Vector 방법을 사용<br>
+ &nbsp;&nbsp;o 임베딩 목표로 하는 개념을 정의하는 문서가 따로 없는 경우에는, 목표 개념이 등장하는 문서들을 활용함<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;- 문서내의 모든 단어를 임베딩하는 방법론인 word2vec를 활용하여 문서 내의 모든 단어를 벡터로 수치화한 후 목표 개념 단어의 벡터를 개념 임베딩으로 사용</span>
+                        </p>
+
+                        </p><strong><p><br></p></strong>
+                        <p><span
+                                style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 12pt;">◆ </span><strong><span
+                                style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 12pt;">구축 방법</span></strong>
+                        </p>
+                        <p style="line-height: 1.8;"><span
+                                style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 10pt;">
+                    o 개념 정의 문서가 존재하는 경우<br>
+&nbsp;&nbsp;- Paragraph Vector 방법을 적용하여 개념 정의 문서의 임베딩을 학습한 뒤 개념의 임베딩으로 활용<br>
+o개념 정의 문서가 존재하지 않는 경우<br>
+&nbsp;&nbsp;- 전체 영문 위키피디아 말뭉치를 이용한 Word2Vec 방법으로 개별 개념의 임베딩을 학습
+                    </span>
+                        </p>
+                        <p><br></p>
+
+                        <p></p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-lg-10 col-lg-offset-1" id="page_data2" style="display: none;">
+                <div id="contents">
+
+                    <div class="con_area">
+
+
+                        <div class="bg_area ng-scope" align="center">
+
+                            <h3>영문 위키피디아 문서를 이용해 학습한 컨텍스트들의 임베딩*</h3>
+                            <h5  >*임베딩 : 문서를 구성하는 하나의 단어를 수치화하는 방법의 일종</h5>
+
+                            <a href="./static/context_data.zip" download="context_data.zip"><button type="button" class="btn btn-danger btn-lg">다운로드</button></a>
+
+                        </div>
+
+
+                        <tbody class="writing">
+                        <p>
+                        </p>
+                        <p>
+                            <span
+                                    style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 12pt;">◆ </span>
+                            <strong><span
+                                    style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 12pt;">데이터 정보</span></strong>
+                        </p>
+                        <p style="line-height: 1.8;">
+                            <table class="__se_tbl"
+                                   style="border-width: 1px 1px 0px 0px; border-style: solid solid none none; border-color: rgb(204, 204, 204) rgb(204, 204, 204) currentColor currentColor; border-image: none; width: 100%"
+                                   border="0" cellspacing="0" cellpadding="0">
+                                <tbody>
+                                <tr>
+                                    <td style="border-width: 0px 0px 1px 1px; border-style: none none solid solid; border-color: currentColor currentColor rgb(204, 204, 204) rgb(204, 204, 204); border-image: none; width: 20%; height: 40px; background-color: rgb(235, 235, 235);">
+                        <p align="center" style="text-align: center;"><strong><span
+                                style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 10pt;">&nbsp;구축 건수</span></strong>
+                        </p>
+                        </td>
+                        <td style="border-width: 0px 0px 1px 1px; border-style: none none solid solid; border-color: currentColor currentColor rgb(204, 204, 204) rgb(204, 204, 204); border-image: none; width: 80%; height: 40px; background-color: rgb(255, 255, 255);">
+                            <p align="center" style="text-align: center;"><span
+                                    style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 10pt;">&nbsp;</span><span
+                                    style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 10pt;">위키피디아 문서 10K+에 대한 컨텍스트 개체 (시간=190만 건, 장소=339만 건) 및 토픽정보 임베딩</span>
+                            </p></td>
+                        </tr>
+                        <tr>
+                            <td style="border-width: 0px 0px 1px 1px; border-style: none none solid solid; border-color: currentColor currentColor rgb(204, 204, 204) rgb(204, 204, 204); border-image: none; width: 20%; height: 40px; background-color: rgb(235, 235, 235);">
+                                <p align="center" style="text-align: center;"><strong><span
+                                        style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 10pt;">&nbsp;데이터 구조</span></strong>
+                                </p>
+                            </td>
+                            <td style="border-width: 0px 0px 1px 1px; border-style: none none solid solid; border-color: currentColor currentColor rgb(204, 204, 204) rgb(204, 204, 204); border-image: none; width: 80%; height: 40px; background-color: rgb(255, 255, 255);">
+                                <p align="center" style="text-align: center;"><span
+                                        style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 10pt;">&nbsp;</span>
+
+                                    <span style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 10pt;">-문서(문서ID)</span><br>
+                                    <span style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 10pt;">-임베딩(300차원)</span>
+
+                                </p></td>
+                        </tr>
+                        </tbody>
+                        </table>
+                        </p>
+                        <p><br></p>
+                        <p><span
+                                style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 12pt;">◆ </span><strong><span
+                                style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 12pt;">데이터 설명</span></strong>
+                        </p>
+                        <p><strong></strong></p>
+
+                        <p style="line-height: 1.8;"><span
+                                style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 10pt;">
+                □ 개요<br>
+&nbsp;&nbsp;o 행 별로 문서ID와 각 셀에 실수값을 가진 300차원의 벡터가 탭 문자(\t)로 구분되어 나열되어있음<br>
+<br>
+□ 세부내용<br>
+&nbsp;&nbsp;o 위키피디아 본문 말뭉치에서 컨텍스트 개체 기반 문서 surrogate 생성 후 단어 임베딩 기술 적용<br>
+&nbsp;&nbsp;&nbsp;&nbsp;- 시간: TimeML 기준 규칙 기반<br>
+&nbsp;&nbsp;&nbsp;&nbsp;- 장소: 세계 지명 사전(GeoNames) 활용한 추출 (9백만 개 이상의 지명 및 대용어 포함)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;- 토픽: 문서 별 위키피디아 주제 카테고리 이용 및 지도학습 기반 질문의 토픽 분류<br>
+&nbsp;&nbsp;o 비계층형 컨텍스트 연관관계 통합 학습의 효과<br>
+&nbsp;&nbsp;&nbsp;&nbsp;- 모든 유형의 컨텍스트 간 연관관계 계산 가능한 임베딩 벡터 생성<br>
+&nbsp;&nbsp;&nbsp;&nbsp;- 암시된 컨텍스트 매칭 가능 (ex. ‘미국’+ ‘1991년’ ≈ ‘걸프 만’)
+                </span>
+                        </p>
+
+                        </p><strong><p><br></p></strong>
+                        <p><span
+                                style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 12pt;">◆ </span><strong><span
+                                style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 12pt;">구축 방법</span></strong>
+                        </p>
+                        <p style="line-height: 1.8;"><span
+                                style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 10pt;">
+                    o 컨텍스트 추출 및 저장 질문 및 문서에 명시된 컨텍스트 추출<br>
+&nbsp;&nbsp;- 위키피디아 본문 말뭉치에서 컨텍스트 개체 기반 문서 surrogate 생성 후 단어 임베딩 기술 적용<br>
+&nbsp;&nbsp;- 절, 문장, 단락 단위에서 추출된 컨텍스트의 통합 저장
+                    </span>
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+        <div class=" row">
+            <div class="col-lg-10 col-lg-offset-1" id="page_data3" style="display: none;">
+                <div id="contents">
+
+                    <div class="con_area">
+
+
+                        <div class="bg_area ng-scope" align="center">
+
+                            <h3>형태소-동형이의어 주석 말뭉치*</h3>
+                            <h5>* 말뭉치: 언어 분석 연구를 위해 텍스트를 컴퓨터가 읽을 수 있는 형태로 주석을 추가한 자료로, 기계학습을 위한 학습데이터로 사용됨</h5>
+
+                            <a href="./static/UCorpus-MA_HG.zip" download="UCorpus-MA_HG.zip"><button type="button" class="btn btn-danger btn-lg">다운로드</button></a>
+
+                        </div>
+
+
+                        <tbody class="writing">
+                        <p>
+                        </p>
+                        <p>
+                            <span
+                                    style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 12pt;">◆ </span>
+                            <strong><span
+                                    style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 12pt;">데이터 정보</span></strong>
+                        </p>
+                        <p style="line-height: 1.8;">
+                            <table class="__se_tbl"
+                                   style="border-width: 1px 1px 0px 0px; border-style: solid solid none none; border-color: rgb(204, 204, 204) rgb(204, 204, 204) currentColor currentColor; border-image: none; width: 100%"
+                                   border="0" cellspacing="0" cellpadding="0">
+                                <tbody>
+                                <tr>
+                                    <td style="border-width: 0px 0px 1px 1px; border-style: none none solid solid; border-color: currentColor currentColor rgb(204, 204, 204) rgb(204, 204, 204); border-image: none; width: 20%; height: 40px; background-color: rgb(235, 235, 235);">
+                        <p align="center" style="text-align: center;"><strong><span
+                                style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 10pt;">&nbsp;구축 건수</span></strong>
+                        </p>
+                        </td>
+                        <td style="border-width: 0px 0px 1px 1px; border-style: none none solid solid; border-color: currentColor currentColor rgb(204, 204, 204) rgb(204, 204, 204); border-image: none; width: 80%; height: 40px; background-color: rgb(255, 255, 255);">
+                            <p align="center" style="text-align: center;"><span
+                                    style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 10pt;">&nbsp;</span><span
+                                    style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 10pt;">16,000,000어절</span>
+                            </p></td>
+                        </tr>
+                        <tr>
+                            <td style="border-width: 0px 0px 1px 1px; border-style: none none solid solid; border-color: currentColor currentColor rgb(204, 204, 204) rgb(204, 204, 204); border-image: none; width: 20%; height: 40px; background-color: rgb(235, 235, 235);">
+                                <p align="center" style="text-align: center;"><strong><span
+                                        style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 10pt;">&nbsp;데이터 구조</span></strong>
+                                </p>
+                            </td>
+                            <td style="border-width: 0px 0px 1px 1px; border-style: none none solid solid; border-color: currentColor currentColor rgb(204, 204, 204) rgb(204, 204, 204); border-image: none; width: 80%; height: 40px; background-color: rgb(255, 255, 255);">
+                                <p align="center" style="text-align: center;"><span
+                                        style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 10pt;">&nbsp;</span>
+
+                                    <span style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 10pt;">-원문</span><br>
+                                    <span style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 10pt;">-태깅된 문장</span>
+
+                                </p></td>
+                        </tr>
+                        </tbody>
+                        </table>
+                        </p>
+                        <p><br></p>
+                        <p><span
+                                style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 12pt;">◆ </span><strong><span
+                                style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 12pt;">데이터 설명</span></strong>
+                        </p>
+                        <p><strong></strong></p>
+
+                        <p style="line-height: 1.8;"><span
+                                style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 10pt;">
+                □ 개요<br>
+&nbsp;&nbsp;o 표준국어대사전의 어깨번호를 기준으로 동형이의어 대상 어깨번호 부착 말뭉치<br>
+<br>
+□ 세부내용<br>
+&nbsp;&nbsp;o 세종형태의미말뭉치의 여러 오류(형태소분석,어깨번호)를 수정하고, 세종형태의미말뭉치에 미부착된 동형이의어(실질형태소, 접사)를 대상으로 표준국어대사전 기준의 어깨번호 부착<br>
+&nbsp;&nbsp;o 표준국어대사전 뜻풀이/용례를 대상으로 형태의미주석<br>
+&nbsp;&nbsp;o 조선일보, 경향신문 2015.04~2016.12년 형태의미주석<br>
+&nbsp;&nbsp;o 법률(노동법, 민법, 상법시행법, 헌법, 형법)<br>
+&nbsp;&nbsp;o 초등학교교과서(4학년 5학년 읽기/말하기/듣기/쓰기)
+                </span>
+                        </p>
+
+                        </p><strong><p><br></p></strong>
+                        <p><span
+                                style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 12pt;">◆ </span><strong><span
+                                style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 12pt;">구축 방법</span></strong>
+                        </p>
+                        <p style="line-height: 1.8;"><span
+                                style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 10pt;">
+                     o UTagger를 이용하여 형태의미주석 후 오류 수작업으로 수정
+                    </span>
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+        <div class=" row">
+            <div class="col-lg-10 col-lg-offset-1" id="page_data4" style="display: none;">
+                <div id="contents">
+
+                    <div class="con_area">
+
+
+                        <div class="bg_area ng-scope" align="center">
+
+                            <h3>형태소-동형이의어-의존관계-의미역 주석 말뭉치*</h3>
+                            <h5>* 말뭉치: 언어 분석 연구를 위해 텍스트를 컴퓨터가 읽을 수 있는 형태로 주석을 추가한 자료로, 기계학습을 위한 학습데이터로 사용됨</h5>
+
+                            <a href="./static/UCorpus-DP_SR.zip" download="UCorpus-DP_SR.zip"><button type="button" class="btn btn-danger btn-lg">다운로드</button></a>
+
+                        </div>
+
+
+                        <tbody class="writing">
+                        <p>
+                        </p>
+                        <p>
+                            <span
+                                    style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 12pt;">◆ </span>
+                            <strong><span
+                                    style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 12pt;">데이터 정보</span></strong>
+                        </p>
+                        <p style="line-height: 1.8;">
+                            <table class="__se_tbl"
+                                   style="border-width: 1px 1px 0px 0px; border-style: solid solid none none; border-color: rgb(204, 204, 204) rgb(204, 204, 204) currentColor currentColor; border-image: none; width: 100%"
+                                   border="0" cellspacing="0" cellpadding="0">
+                                <tbody>
+                                <tr>
+                                    <td style="border-width: 0px 0px 1px 1px; border-style: none none solid solid; border-color: currentColor currentColor rgb(204, 204, 204) rgb(204, 204, 204); border-image: none; width: 20%; height: 40px; background-color: rgb(235, 235, 235);">
+                        <p align="center" style="text-align: center;"><strong><span
+                                style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 10pt;">&nbsp;구축 건수</span></strong>
+                        </p>
+                        </td>
+                        <td style="border-width: 0px 0px 1px 1px; border-style: none none solid solid; border-color: currentColor currentColor rgb(204, 204, 204) rgb(204, 204, 204); border-image: none; width: 80%; height: 40px; background-color: rgb(255, 255, 255);">
+                            <p align="center" style="text-align: center;"><span
+                                    style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 10pt;">&nbsp;</span><span
+                                    style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 10pt;">2,000,000어절</span>
+                            </p></td>
+                        </tr>
+                        <tr>
+                            <td style="border-width: 0px 0px 1px 1px; border-style: none none solid solid; border-color: currentColor currentColor rgb(204, 204, 204) rgb(204, 204, 204); border-image: none; width: 20%; height: 40px; background-color: rgb(235, 235, 235);">
+                                <p align="center" style="text-align: center;"><strong><span
+                                        style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 10pt;">&nbsp;데이터 구조</span></strong>
+                                </p>
+                            </td>
+                            <td style="border-width: 0px 0px 1px 1px; border-style: none none solid solid; border-color: currentColor currentColor rgb(204, 204, 204) rgb(204, 204, 204); border-image: none; width: 80%; height: 40px; background-color: rgb(255, 255, 255);">
+                                <p align="center" style="text-align: center;"><span
+                                        style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 10pt;">&nbsp;</span>
+
+                                    <span style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 10pt;">-원문</span><br>
+                                    <span style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 10pt;">-태깅된 문장</span>
+
+                                </p></td>
+                        </tr>
+                        </tbody>
+                        </table>
+                        </p>
+                        <p><br></p>
+                        <p><span
+                                style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 12pt;">◆ </span><strong><span
+                                style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 12pt;">데이터 설명</span></strong>
+                        </p>
+                        <p><strong></strong></p>
+
+                        <p style="line-height: 1.8;"><span
+                                style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 10pt;">
+                □ 개요<br>
+&nbsp;&nbsp;o 약 2,000,000 어절의 세종말뭉치를 대상으로 형태소분석, 의미(동형이의어)분석, 의존관계분석, 의미역분석 말뭉치를 구축<br>
+<br>
+□ 세부내용<br>
+&nbsp;&nbsp;o 31개의 구구조말뭉치는 의존관계로 변경<br>
+&nbsp;&nbsp;&nbsp;&nbsp;- 어깨번호가 부착되지 않은 10개의 구구조말뭉치는 모두 어깨번호 부착<br>
+&nbsp;&nbsp;&nbsp;&nbsp;- 세종형태의미말뭉치에 포함된 21개 파일<br>
+<br>
+&nbsp;&nbsp;o 39의 추가 세종형태의미말뭉치를 의존관계 및 의미역 부착<br>
+<br>
+&nbsp;&nbsp;o 의미역은 세종전자사전의 의미역 16개에 6개의 의미역을 추가하여 22개의 의미역<br>
+&nbsp;&nbsp;&nbsp;&nbsp;- 행동주(AGT), 경험주(EXP), 피동주(PAT), 동반자(COM), 대상(THM), 기점(SRC), 착점(GOL),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;- 처소(LOC), 자극(STM), 원인(CAU), 비교기준(CRT), 시간(TMP), 정도(DGR), 방법(MNR),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;- 자격(ROL), 재료(MAT), 도구(INS), 경로(ROU), 방향(DIR), 수혜자(BEN), 내용(춧), 목적(PUR)<br>
+<br>
+&nbsp;&nbsp;o UPropBank: 표준국어대사전의 90,100개의 다의어 용언의 필수논항에 의미역 부착
+                </span>
+                        </p>
+
+                        </p><strong><p><br></p></strong>
+                        <p><span
+                                style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 12pt;">◆ </span><strong><span
+                                style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 12pt;">구축 방법</span></strong>
+                        </p>
+                        <p style="line-height: 1.8;"><span
+                                style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 10pt;">
+                     o UTagger-DP(반자동)를 이용하여 의존관계 부착<br>
+                    o UTagger-SR(반자동, 통계기반)을 이용하여 의미역 부착
+                    </span>
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+        <div class="demo_row">
+            <div class="col-lg-10 col-lg-offset-1" id="page_data5" style="display: none;">
+                <div id="contents">
+
+                    <div class="con_area">
+
+
+                        <div class="bg_area ng-scope" align="center">
+
+                            <h3>형태소-동형이의어-의존관계-의미역-개체명 주석 말뭉치*</h3>
+                            <h5 >* 말뭉치: 언어 분석 연구를 위해 텍스트를 컴퓨터가 읽을 수 있는 형태로 주석을 추가한 자료로, 기계학습을 위한 학습데이터로 사용됨</h5>
+
+                            <a href="./static/UCorpus-NE.zip" download="UCorpus-NE.zip"><button type="button" class="btn btn-danger btn-lg">다운로드</button></a>
+
+                        </div>
+
+
+                        <tbody class="writing">
+                        <p>
+                        </p>
+                        <p>
+                            <span
+                                    style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 12pt;">◆ </span>
+                            <strong><span
+                                    style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 12pt;">데이터 정보</span></strong>
+                        </p>
+                        <p style="line-height: 1.8;">
+                            <table class="__se_tbl"
+                                   style="border-width: 1px 1px 0px 0px; border-style: solid solid none none; border-color: rgb(204, 204, 204) rgb(204, 204, 204) currentColor currentColor; border-image: none; width: 100%"
+                                   border="0" cellspacing="0" cellpadding="0">
+                                <tbody>
+                                <tr>
+                                    <td style="border-width: 0px 0px 1px 1px; border-style: none none solid solid; border-color: currentColor currentColor rgb(204, 204, 204) rgb(204, 204, 204); border-image: none; width: 20%; height: 40px; background-color: rgb(235, 235, 235);">
+                        <p align="center" style="text-align: center;"><strong><span
+                                style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 10pt;">&nbsp;구축 건수</span></strong>
+                        </p>
+                        </td>
+                        <td style="border-width: 0px 0px 1px 1px; border-style: none none solid solid; border-color: currentColor currentColor rgb(204, 204, 204) rgb(204, 204, 204); border-image: none; width: 80%; height: 40px; background-color: rgb(255, 255, 255);">
+                            <p align="center" style="text-align: center;"><span
+                                    style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 10pt;">&nbsp;</span><span
+                                    style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 10pt;">500,000어절</span>
+                            </p></td>
+                        </tr>
+                        <tr>
+                            <td style="border-width: 0px 0px 1px 1px; border-style: none none solid solid; border-color: currentColor currentColor rgb(204, 204, 204) rgb(204, 204, 204); border-image: none; width: 20%; height: 40px; background-color: rgb(235, 235, 235);">
+                                <p align="center" style="text-align: center;"><strong><span
+                                        style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 10pt;">&nbsp;데이터 구조</span></strong>
+                                </p>
+                            </td>
+                            <td style="border-width: 0px 0px 1px 1px; border-style: none none solid solid; border-color: currentColor currentColor rgb(204, 204, 204) rgb(204, 204, 204); border-image: none; width: 80%; height: 40px; background-color: rgb(255, 255, 255);">
+                                <p align="center" style="text-align: center;"><span
+                                        style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 10pt;">&nbsp;</span>
+
+                                    <span style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 10pt;">-BI tag</span>
+
+                                </p></td>
+                        </tr>
+                        </tbody>
+                        </table>
+                        </p>
+                        <p><br></p>
+                        <p><span
+                                style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 12pt;">◆ </span><strong><span
+                                style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 12pt;">데이터 설명</span></strong>
+                        </p>
+                        <p><strong></strong></p>
+
+                        <p style="line-height: 1.8;"><span
+                                style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 10pt;">
+                □ 개요<br>
+&nbsp;&nbsp;o 약 2,000,000 어절의 형태소-동형이의어-의존관계-의미역 부착 말뭉치를 대상으로 개체명 부착<br>
+<br>
+□ 세부내용<br>
+&nbsp;&nbsp;o ETRI 15개 대분류 개체명 중 11개 개체명에 한정하여 개체명 부착<br>
+&nbsp;&nbsp;o 11개 개체명<br>
+&nbsp;&nbsp;&nbsp;&nbsp;- 인명(PS), 이론(TR), 인공물(AF), 조직명(OG), 지역명(LC),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;- 문명/문화(CV), 날짜(DT), 사건(EV), 동물(AM), 식물(PT)
+                </span>
+                        </p>
+
+                        </p><strong><p><br></p></strong>
+                        <p><span
+                                style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 12pt;">◆ </span><strong><span
+                                style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 12pt;">구축 방법</span></strong>
+                        </p>
+                        <p style="line-height: 1.8;"><span
+                                style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 10pt;">
+                     o UTagger-NE(반자동)를 이용하여 개체명 부착
+                    </span>
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">안내</h4>
+                </div>
+                <div class="modal-body">
+                    이 시스템 데모는 엑소브레인 과제 2차년도 결과물입니다. <br>
+                    현재 카이스트 엑소브레인 3세부는 기존 KBQA 및 IRQA의 한계를 해결하기 위한 CGQA 방식을 연구 중에 있습니다.<br>
+                    이 시스템 데모는 현재 연구중인 CGQA를 기반으로 webquestions QA task를 수행한 결과물 입니다.<br><br>
+                    <img src="./static/popupImage.png" style="max-width: 100%; min-width:880px; height: auto;">
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static '/plugins/sigma.layout.forceAtlas2/worker.js' %}"></script>
+    <script src="{% static '/plugins/sigma.layout.forceAtlas2/supervisor.js' %}"></script>
+
+    <div style="height:100px"></div>
+
+
+    <script>
+
+        /*
+        function readTextFile(file, callback) {
+            var rawFile = new XMLHttpRequest();
+            rawFile.overrideMimeType("application/json");
+            rawFile.open("GET", file, true);
+            rawFile.onreadystatechange = function() {
+                if (rawFile.readyState === 4 && rawFile.status == "200") {
+                    callback(rawFile.responseText);
+                }
+            }
+            rawFile.send(null);
+        }
+        */
+        
+        var query_id = 'graph';
+
+        qid_p = localStorage.getItem("query_id");
+        if (qid_p != null){
+            query_id = qid_p
+        }
+
+        function query_changed2(selectQuery) {
+            var qid = selectQuery.value.split(':::')[0]
+            query_id = qid
+            console.log(query_id)
+            localStorage.setItem('query_id', qid);
+            var link = document.getElementById("button_a");
+            link.setAttribute("href", "?qid=" + selectQuery.value.split(':::')[1]);
+        }
+
+        $(document).ready(function () {
+
+            $('#exoTab a').click(function (e) {
+                e.preventDefault()
+                $(this).tab('show')
+            })
+        });
+        //req 없이 쓸경우 - "./static/" + query_id + ".json" 사용
+        //req "{% static "graph2.json" %}"
+
+        sigma.parsers.json("{% static "graph2.json" %}", {
+            renderers: [{
+                container: 'container', type: 'canvas',
+                settings: {
+                    defaultNodeColor: '#ecc79e',
+                    defaultEdgeColor: '#000000',
+
+                    labelSizeRatio: 2,
+                    borderSize: 1,
+                }
+            }],
+            settings: {
+
+                minEdgeSize: 0.5,
+                maxEdgeSize: 2,
+                enableEdgeHovering: true,
+
+                defaultEdgeHoverColor: '#000',
+                edgeHoverSizeRatio: 2,
+                edgeHoverExtremities: true,
+                autoRescale: false
+            }
+        }, function (s) {
+            var edges = s.graph.edges();
+            s.startForceAtlas2({worker: true, barnesHutOptimize: false, slowDown: 10, gravity: 1});
+            setTimeout(function () {
+                s.stopForceAtlas2()
+            }, 1000);
+            var dragListener = sigma.plugins.dragNodes(s, s.renderers[0]);
+            dragListener.bind('startdrag', function (event) {
+                console.log(event);
+            });
+            dragListener.bind('drag', function (event) {
+                console.log(event);
+            });
+            dragListener.bind('drop', function (event) {
+                console.log(event);
+            });
+            dragListener.bind('dragend', function (event) {
+                console.log(event);
+            });
+        });
+
+        s = sigma.parsers.json("{% static "concept_graph2.json" %}", {
+            renderers: [{
+                container: 'container2', type: 'canvas',
+                settings: {
+                    defaultNodeColor: '#ecc79e',
+                    defaultEdgeColor: '#000000',
+
+                    labelSizeRatio: 2,
+                    borderSize: 1,
+                }
+            }],
+            settings: {
+
+                minEdgeSize: 0.5,
+                maxEdgeSize: 2,
+                enableEdgeHovering: true,
+
+                defaultEdgeHoverColor: '#000',
+                edgeHoverSizeRatio: 2,
+                edgeHoverExtremities: true,
+                autoRescale: true
+            }
+        }, function (s) {
+
+            var edges = s.graph.edges();
+            s.startForceAtlas2({worker: true, barnesHutOptimize: false, slowDown: 10, gravity: 1});
+            setTimeout(function () {
+                s.stopForceAtlas2()
+            }, 1000);
+
+            var dragListener = sigma.plugins.dragNodes(s, s.renderers[0]);
+            dragListener.bind('startdrag', function (event) {
+                console.log(event);
+            });
+            dragListener.bind('drag', function (event) {
+                console.log(event);
+            });
+            dragListener.bind('drop', function (event) {
+                console.log(event);
+            });
+            dragListener.bind('dragend', function (event) {
+                console.log(event);
+            });
+        });
+        
+
+
+    </script>
+
+    <script type="text/javascript">
+
+        function query_changed(selectQuery) {
+            var qid = selectQuery.value
+            console.log(selectQuery)
+            console.log(qid)
+            var link = document.getElementById("button_a");
+            link.setAttribute("href", "?qid=" + qid);
+
+
+        }
+    </script>
+
+    <script type="text/javascript">
+        //팝업창 띄우기
+        {#        window.open("{% static '/popup.html' %}","","width = 400, height = 400, left = 200");#}
+        {#        // 버튼에 따라 div들을 숨기거나 표시하는 역할을 수행#}
+
+        var current = document.getElementById("page_demo");
+
+        $(".btn-secondary").click(function (event) {
+            var idStr = this.id.split('btn_')[1];
+            idStr = "page_" + idStr;
+            current.style.display = 'none';
+            current = document.getElementById(idStr);
+            current.style.display = 'block';
+
+        })
+
+    </script>
+
+    <script>
+        ;(function (undefined) {
+            'use strict';
+
+            if (typeof sigma === 'undefined')
+                throw 'sigma is not declared';
+
+            // Initialize packages:
+            sigma.utils.pkg('sigma.canvas.labels');
+
+            /**
+             * This label renderer will just display the label on the right of the node.
+             *
+             * @param  {object}                   node     The node object.
+             * @param  {CanvasRenderingContext2D} context  The canvas context.
+             * @param  {configurable}             settings The settings function.
+             */
+            sigma.canvas.labels.def = function (node, context, settings) {
+                var fontSize,
+                    prefix = settings('prefix') || '',
+                    size = node[prefix + 'size'];
+
+                if (size < 9)
+                    return;
+
+                if (!node.label || typeof node.label !== 'string')
+                    return;
+
+                fontSize = (settings('labelSize') === 'fixed') ?
+                    settings('defaultLabelSize') :
+                    settings('labelSizeRatio') * size;
+
+                context.font = (settings('fontStyle') ? settings('fontStyle') + ' ' : '') +
+                    fontSize + 'px ' + settings('font');
+                context.fillStyle = (settings('labelColor') === 'node') ?
+                    (node.color || settings('defaultNodeColor')) :
+                    settings('defaultLabelColor');
+
+                context.fillText(
+                    node.label,
+                    Math.round(node[prefix + 'x'] + size + 3),
+                    Math.round(node[prefix + 'y'] + fontSize / 3)
+                );
+            };
+        }).call(this);
+    </script>
+{% endblock %}
