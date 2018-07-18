@@ -65,7 +65,9 @@
 
         <div class="col-lg-10 col-lg-offset-1">
             <ul class="nav nav-tabs" id="exoTab">
-                <li role="presentation" class="active"><a href="#" class="btn-secondary" id="btn_demo">데모</a></li>
+                <li role="presentation" class="active"><a href="#" class="btn-secondary" id="btn_demo1">데모-웹</a></li>
+                <li role="presentation"><a href="#" class="btn-secondary" id="btn_demo2">데모-위키</a></li>
+                <li role="presentation"><a href="#" class="btn-secondary" id="btn_result">성능 평가 결과</a></li>
                 <li role="presentation"><a href="#" class="btn-secondary" id="btn_data1">데이터 다운로드 1</a></li>
                 <li role="presentation"><a href="#" class="btn-secondary" id="btn_data2">데이터 다운로드 2</a></li>
                 <li role="presentation"><a href="#" class="btn-secondary" id="btn_data3">데이터 다운로드 3</a></li>
@@ -86,9 +88,9 @@
     <div class="container">
 
         <div class="row">
-            <div class="col-lg-10 col-lg-offset-1" id="page_demo">
+            <div class="col-lg-10 col-lg-offset-1" id="page_demo1">
                 <div class="demo_row" style="position: relative;">
-                    <h3 style="display: block; text-align: center">CGQA Architecture V0: DEMO</h3>
+                    <h3 style="display: block; text-align: center">CGQA Architecture V0: DEMO - Web</h3>
                     <button type="button" class="btn btn-success pull-right" data-toggle="modal" data-target="#myModal"
                             style="position:absolute; top:0; right:0;">안내</button>
                 </div>
@@ -121,27 +123,6 @@
                 </div>
                 <div class="row demo_row">
                     <div class="col-lg-12">
-
-                        <!--<div class="row">-->
-                        <!--<div class="col-lg-12">-->
-                        <!--<button class="btn btn-block btn-default" id="decomposed_answer_title">▼ Decomposed Questions ▼</button>-->
-                        <!--<div id="decomposed_question_result" class="form-control myscroll" rows="1">-->
-                        <!--{% for decomposed_text in decomposed %}-->
-                            <!--{{ decomposed_text }} <br>-->
-                            <!--{% endfor %}-->
-                        <!--</div>-->
-                        <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="row">-->
-                        <!--<div class="col-lg-12">-->
-                        <!--<button class="btn btn-block btn-default" id="pos_tagging">▼ POS tagging ▼</button>-->
-                        <!--<div id="pos_tagging_result" class="form-control myscroll" rows="1">-->
-                        <!--{% for decomposed_text in decomposed %}-->
-                            <!--{{ decomposed_text.pos_tagging }} <br>-->
-                            <!--{% endfor %}-->
-                        <!--</div>-->
-                        <!--</div>-->
-                        <!--</div>-->
                         <div class="row demo_row">
                             <div class="col-lg-12">
                                 <button class="btn btn-block btn-default" id="query_graph">▼ Query Graph ▼</button>
@@ -217,6 +198,297 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-10 col-lg-offset-1" id="page_demo2" style="display: none;">
+                <div class="demo_row" style="position: relative;">
+                    <h3 style="display: block; text-align: center">CGQA Architecture V0: DEMO - Wiki</h3>
+                    <button type="button" class="btn btn-success pull-right" data-toggle="modal" data-target="#myModal"
+                            style="position:absolute; top:0; right:0;">안내</button>
+                </div>
+
+                <div class="row demo_row" style="clear: both;">
+                    <div class="col-lg-10">
+                        <!--임의 수정
+                        <select class="form-control" name="query" id="query_list" onchange="query_changed(this)">
+                            <option value="{{ selected_question_id }}">{{ selected_question_text }}</option>
+                            {% for question in questions %}
+                                <option value="{{ question.id }}">{{ question.text }}</option>
+                            {% endfor %}
+                        </select>
+                        -->
+
+
+                        <select class="form-control" name="query" id="query_list" onchange="query_changed2(this)">
+                            <option value="{{ selected_question_id2 }}">{{ selected_question_text2 }}</option>
+                            {% for question in questions2 %}
+                                <option value="{{ question.id }}">{{ question.text }}</option>
+                            {% endfor %}
+                        </select>
+
+                    </div>
+                    <div class="col-lg-2">
+                        <a id="button_a" href="">
+                            <button class="btn btn-block btn-primary" id="cgqa_at_once">실행</button>
+                        </a>
+                    </div>
+                </div>
+                <div class="row demo_row">
+                    <div class="col-lg-12">
+
+                        <!--<div class="row">-->
+                        <!--<div class="col-lg-12">-->
+                        <!--<button class="btn btn-block btn-default" id="decomposed_answer_title">▼ Decomposed Questions ▼</button>-->
+                        <!--<div id="decomposed_question_result" class="form-control myscroll" rows="1">-->
+                        <!--{% for decomposed_text in decomposed %}-->
+                            <!--{{ decomposed_text }} <br>-->
+                            <!--{% endfor %}-->
+                        <!--</div>-->
+                        <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="row">-->
+                        <!--<div class="col-lg-12">-->
+                        <!--<button class="btn btn-block btn-default" id="pos_tagging">▼ POS tagging ▼</button>-->
+                        <!--<div id="pos_tagging_result" class="form-control myscroll" rows="1">-->
+                        <!--{% for decomposed_text in decomposed %}-->
+                            <!--{{ decomposed_text.pos_tagging }} <br>-->
+                            <!--{% endfor %}-->
+                        <!--</div>-->
+                        <!--</div>-->
+                        <!--</div>-->
+                        <div class="row demo_row">
+                            <div class="col-lg-12">
+                                <button class="btn btn-block btn-default" id="query_graph">▼ Query Graph ▼</button>
+                                <div class="container_wrapper">
+                                    <!-- 임의 수정
+                                    {% if question.answer_type == 'Who' %}
+                                        Answer Type : <b>Person</b>
+                                    {% elif question.answer_type == 'Where' %}
+                                        Answer Type : <b>Location</b>
+                                    {% elif question.answer_type == 'Date' %}
+                                        Answer Type : <b>Time</b>
+                                    {% else %}
+                                        Answer Type : <b>Other</b>
+                                    {% endif %}
+                                    -->
+
+                                    <div id="container"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row demo_row">
+                            <div class="col-lg-12">
+                                <button class="btn btn-block btn-default" id="query_graph2">▼ CGKB ▼</button>
+                                <div class="container_wrapper">
+                                    <div id="container2"></div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row demo_row">
+                            <div class="col-lg-6">
+                                <button class="btn btn-block btn-default" id="pred_answer_title">▼ Predicted Answer
+                                    Candidates ▼
+                                </button>
+
+                                <div id="pred_answer_result" class="form-control myscroll" rows="10">
+                                    <!--임의 수정
+                                    {% for candidate in candidates %}
+                                        {% if candidate.1 == True %}
+                                            <b><p style="color:blue;"> {{ candidate.0 }} </p></b>
+                                        {% else %}
+                                            <p style="color:red;"> {{ candidate.0 }} </p>
+                                        {% endif %}
+                                    {% endfor %}
+                                    -->
+                                    {% for candidate in candidates2 %}
+                                        {% if candidate.1 == True %}
+                                            <b><p style="color:blue;"> {{ candidate.0 }} </p></b>
+                                        {% else %}
+                                            <p style="color:red;"> {{ candidate.0 }} </p>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <button class="btn btn-block btn-default" id="gold_answer_title">▼ Gold Answers ▼
+                                </button>
+                                <div id="gold_answer_result" class="form-control myscroll" rows="2">
+                                    <!--임의 수정
+                                    {% for gold_answer in gold_answers %}
+                                        <p> {{ gold_answer }} </p>
+                                    {% endfor %}
+                                    -->
+                                    {% for gold_answer in gold2 %}
+                                        <p> {{ gold_answer }} </p>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-10 col-lg-offset-1" id="page_result" style="display: none;">
+                <div id="contents">
+
+                    <div class="con_area">
+
+                        <div class="bg_area ng-scope" align="center">
+                            <h3>2차년도 성능평가 중간점검 결과</h3>
+                        </div>
+
+                        <tbody class="writing">
+                        <p>
+                        </p>
+                        <p>
+                            <strong><span
+                                    style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 12pt;">◆ TriviaQA 데이터셋: CGQA Architecture 품질 측정 기준</span></strong>
+                        </p>
+                        <p style="line-height: 1.8;"><span
+                                style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 10pt;">1) 정량 평가: F1 score(정답률)<br>
+                        <p style="line-height: 1.8;"><span
+                                style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 10pt;">2) 정성 평가: 난제 유형의 문제에 대한 정확도/정밀도 비교 (고난도 문제 해결능력 측정)<br>
+
+                        <p><br></p>
+
+                        <p>
+                            <strong><span
+                                    style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 12pt;">◆ CGQA Architecture Ver. 0 (프로토타입)의 구성</span></strong>
+                        </p>
+                        <p style="line-height: 1.8;"><span
+                                style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 10pt;">• 본 Ver. 0은 기존 symbolic 알고리즘에 기반하여 구성된 QA 시스템으로서,2차년도 중점 연구개발 대상 기술인 deep-symbolic 하이브리드 방법, 심화 질의분석, 컨텍스트 추출∙활용 등이 미포함된 구조임.<br>
+                        <p style="line-height: 1.8;"><span
+                                style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 10pt;">• 본 Ver. 0는 end-to-end 파이프라인 구조로서, QA에 대해 자동화되어 구동됨.<br>
+
+                        <p><br></p>
+
+                        <p>
+                            <strong><span
+                                    style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 12pt;">◆ CGQA Architecture Ver. 0 (프로토타입) 정량 성능 측정 결과 공유</span></strong>
+                        </p>
+                        <p style="line-height: 1.8;"><span
+                                style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 10pt;">• 기준 데이터: TriviaQA-Wikipedia-verified-dev<br>
+                            <div class="bg_area ng-scope" align="center">
+                                <h5>표 1. CGQA architecture 프로토타입 정량 성능 측정 결과</h5>
+                            </div>
+
+                            <div align="center">
+                        <p style="line-height: 1.8;" >
+                            <table class="__se_tbl"
+                                   style="border-width: 1px 1px 0px 0px; border-style: solid solid none none; border-color: rgb(204, 204, 204) rgb(204, 204, 204) currentColor currentColor; border-image: none; width: 50%"
+                                   border="0" cellspacing="0" cellpadding="0">
+                                <tbody>
+                                <tr>
+                                    <td style="border-width: 0px 0px 1px 1px; border-style: none none solid solid; border-color: currentColor currentColor rgb(204, 204, 204) rgb(204, 204, 204); border-image: none; height: 40px; background-color: rgb(235, 235, 235);">
+                        <p align="center" style="text-align: center;"><strong><span
+                                style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 10pt;">항목</span></strong>
+                        </p>
+                        </td>
+                        <td style="border-width: 0px 0px 1px 1px; border-style: none none solid solid; border-color: currentColor currentColor rgb(204, 204, 204) rgb(204, 204, 204); border-image: none; height: 40px; background-color: rgb(235, 235, 235);">
+                            <p align="center" style="text-align: center;"><string><span
+                                    style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 10pt;">수치</span></string>
+                            </p></td>
+                        </tr>
+                        <tr>
+                            <td style="border-width: 0px 0px 1px 1px; border-style: none none solid solid; border-color: currentColor currentColor rgb(204, 204, 204) rgb(204, 204, 204); border-image: none; width: 60%; height: 40px; background-color: rgb(255, 255, 255);">
+                                <p align="center" style="text-align: center;"><span style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 10pt;">전체 문항 수</span>
+                                </p>
+                            </td>
+                            <td style="border-width: 0px 0px 1px 1px; border-style: none none solid solid; border-color: currentColor currentColor rgb(204, 204, 204) rgb(204, 204, 204); border-image: none; width: 60%; height: 40px; background-color: rgb(255, 255, 255);">
+                                <p align="center" style="text-align: center;"><span style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 10pt;">297 (개)</span>
+                                </p></td>
+                        </tr>
+                        <tr>
+                            <td style="border-width: 0px 0px 1px 1px; border-style: none none solid solid; border-color: currentColor currentColor rgb(204, 204, 204) rgb(204, 204, 204); border-image: none; height: 40px; background-color: rgb(255, 255, 255);">
+                                <p align="center" style="text-align: center;"><span style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 10pt;">일치 문항 수<sup>[1]</sup></span>
+                                </p>
+                            </td>
+                            <td style="border-width: 0px 0px 1px 1px; border-style: none none solid solid; border-color: currentColor currentColor rgb(204, 204, 204) rgb(204, 204, 204); border-image: none; height: 40px; background-color: rgb(255, 255, 255);">
+                                <p align="center" style="text-align: center;"><span style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 10pt;">198 (개)</span>
+                                </p></td>
+                        </tr>
+                        <tr>
+                            <td style="border-width: 0px 0px 1px 1px; border-style: none none solid solid; border-color: currentColor currentColor rgb(204, 204, 204) rgb(204, 204, 204); border-image: none; height: 40px; background-color: rgb(255, 255, 255);">
+                                <p align="center" style="text-align: center;"><span style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 10pt;">정답 문항 수<sup>[2]</sup></span>
+                                </p>
+                            </td>
+                            <td style="border-width: 0px 0px 1px 1px; border-style: none none solid solid; border-color: currentColor currentColor rgb(204, 204, 204) rgb(204, 204, 204); border-image: none; height: 40px; background-color: rgb(255, 255, 255);">
+                                <p align="center" style="text-align: center;"><span style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 10pt;">82 (개)</span>
+                                </p></td>
+                        </tr>
+                        <tr>
+                            <td style="border-width: 0px 0px 1px 1px; border-style: none none solid solid; border-color: currentColor currentColor rgb(204, 204, 204) rgb(204, 204, 204); border-image: none; height: 40px; background-color: rgb(255, 255, 255);">
+                                <p align="center" style="text-align: center;"><span style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 10pt;">일치 정답률<sup>[3]</sup></span>
+                                </p>
+                            </td>
+                            <td style="border-width: 0px 0px 1px 1px; border-style: none none solid solid; border-color: currentColor currentColor rgb(204, 204, 204) rgb(204, 204, 204); border-image: none; height: 40px; background-color: rgb(255, 255, 255);">
+                                <p align="center" style="text-align: center;"><span style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 10pt;">41.41(%)</span>
+                                </p></td>
+                        </tr>
+                        <tr>
+                            <td style="border-width: 0px 0px 1px 1px; border-style: none none solid solid; border-color: currentColor currentColor rgb(204, 204, 204) rgb(204, 204, 204); border-image: none;  height: 40px; background-color: rgb(255, 255, 255);">
+                                <p align="center" style="text-align: center;"><span style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 10pt;">정답률<sup>[4]</sup></span>
+                                </p>
+                            </td>
+                            <td style="border-width: 0px 0px 1px 1px; border-style: none none solid solid; border-color: currentColor currentColor rgb(204, 204, 204) rgb(204, 204, 204); border-image: none; height: 40px; background-color: rgb(255, 255, 255);">
+                                <p align="center" style="text-align: center;"><span style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 10pt;">27.61(%)</span>
+                                </p></td>
+                        </tr>
+                        </tbody>
+                        </table>
+                        </p>
+                        <h5>※ 특정 단어 및 그 주변 단어를 포함하는 단어구가 답으로 검출된 결과를 합산. (정답 후보군 수는 최대 20개로 한정)</h5>
+
+
+                    </div>
+
+
+                    <div style="margin-left: 22%;">
+
+                    <p style="line-height: 1.8;"><span
+                            style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 10pt;">< 각주 설명 ><br>
+
+                    <p style="line-height: 1.8;"><span
+                            style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 10pt;">[1] 문제(query)-문서(document) 그래프가 일치된 문항의 개수<br>
+
+                    <p style="line-height: 1.8;"><span
+                            style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 10pt;">[2] 문제-문서 그래프가 일치하여 정답 도출된 문항의 개수<br>
+
+                    <p style="line-height: 1.8;"><span
+                            style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 10pt;">[3] 문제-문서 그래프가 일치하여 정답 도출된 문항의 일치 문항에 대한 비율<br>
+
+                    <p style="line-height: 1.8;"><span
+                            style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 10pt;">[4] 문제-문서 그래프가 일치하여 정답 도출된 문항의 전체 문항에 대한 비율<br><br>
+
+
+                    </div>
+
+                        <p style="line-height: 1.8;"><span
+                                style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 10pt;">• 2017년 기준 MRC 모델(BiDAF)의 TriviaQA의 동일 데이터에 대한 성능 결과는 50.71임. (TriviaQA-Wikipedia-verified-dev 데이터에 대한 F1 score, 2017.07.19 기준)<br>
+
+                        <p style="line-height: 1.8;"><span
+                                style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 10pt;">• 기준 데이터: TriviaQA-web-verified-dev: 그래프 매칭 단계로 결과 도출 즉시 전달 예정.<br>
+
+                        <p><br></p>
+
+                        <p>
+                            <strong><span
+                                    style="font-family: &quot;나눔고딕&quot;,NanumGothic,Sans-serif; font-size: 12pt;">◆ 정성 평가: 난제 유형의 문제를 엄선하여, MRC 등 방식과 성능(정확도/정밀도) 비교</span></strong>
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
         </div>
 
         <div class="row">
@@ -902,7 +1174,7 @@ o개념 정의 문서가 존재하지 않는 경우<br>
         {#        window.open("{% static '/popup.html' %}","","width = 400, height = 400, left = 200");#}
         {#        // 버튼에 따라 div들을 숨기거나 표시하는 역할을 수행#}
 
-        var current = document.getElementById("page_demo");
+        var current = document.getElementById("page_demo1");
 
         $(".btn-secondary").click(function (event) {
             var idStr = this.id.split('btn_')[1];
