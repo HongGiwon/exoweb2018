@@ -40,10 +40,15 @@ def demo(req):
 
 
     ### 임의 수정 ###################################################
+    '''
     with open(BASE_DIR + '/web/statics/query_text.json') as f:
         quetions_2 = json.load(f)
     result['questions2'] = quetions_2
-
+    '''
+    
+    with open(BASE_DIR + '/web/statics/query_text_partial.json') as f:
+        quetions_2 = json.load(f)
+    result['questions2'] = quetions_2
     
     if qid != -1:
 
@@ -64,12 +69,18 @@ def demo(req):
 
         result['candidates2'] = candidate_tmp2
         result['gold2'] = gold2
-
+        '''
         with open(BASE_DIR + '/web/statics/triple_data/query/valid/' + tmp_id + '.json') as f:
             graph2 = json.load(f)
         with open(BASE_DIR + '/web/statics/triple_data/doc/valid/' + tmp_id + '.json') as f:
             concept_graph2 = json.load(f)
-
+        '''
+        
+        with open(BASE_DIR + '/web/statics/triple_data/query/partial/' + tmp_id + '.json') as f:
+            graph2 = json.load(f)
+        with open(BASE_DIR + '/web/statics/triple_data/doc/partial/' + tmp_id + '.json') as f:
+            concept_graph2 = json.load(f)
+        
     else:
         result['selected_question_id2'] = -1
         result['selected_question_text2'] = '-- 질의 선택 --'
