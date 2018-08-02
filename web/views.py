@@ -45,7 +45,7 @@ def demo(req):
         quetions_2 = json.load(f)
     result['questions2'] = quetions_2
     '''
-    
+
     with open(BASE_DIR + '/web/statics/query_text_partial.json') as f:
         quetions_2 = json.load(f)
     result['questions2'] = quetions_2
@@ -75,12 +75,13 @@ def demo(req):
         with open(BASE_DIR + '/web/statics/triple_data/doc/valid/' + tmp_id + '.json') as f:
             concept_graph2 = json.load(f)
         '''
-        
+
         with open(BASE_DIR + '/web/statics/triple_data/query/partial/' + tmp_id + '.json') as f:
             graph2 = json.load(f)
         with open(BASE_DIR + '/web/statics/triple_data/doc/partial/' + tmp_id + '.json') as f:
             concept_graph2 = json.load(f)
-        
+
+
     else:
         result['selected_question_id2'] = -1
         result['selected_question_text2'] = '-- 질의 선택 --'
@@ -92,6 +93,9 @@ def demo(req):
     with open(BASE_DIR + '/web/statics/concept_graph2.json', 'w') as f:
         json.dump(concept_graph2, f)
     ################################################################
+
+    response = TemplateResponse(req, 'demo.html', result)
+    return response
 
     graph = {"nodes":[], "edges":[]}
     concept_graph = {"nodes":[], "edges":[]}

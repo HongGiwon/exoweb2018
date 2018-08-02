@@ -68,6 +68,8 @@
                 <li role="presentation" class="active"><a href="#" class="btn-secondary" id="btn_demo1">데모-웹</a></li>
                 <li role="presentation"><a href="#" class="btn-secondary" id="btn_demo2">데모-위키</a></li>
                 <li role="presentation"><a href="#" class="btn-secondary" id="btn_result">성능 평가 결과</a></li>
+                <li role="presentation"><a href="#" class="btn-secondary" id="btn_api1">API 다운로드 1</a></li>
+                <li role="presentation"><a href="#" class="btn-secondary" id="btn_api2">API 다운로드 2</a></li>
                 <li role="presentation"><a href="#" class="btn-secondary" id="btn_data1">데이터 다운로드 1</a></li>
                 <li role="presentation"><a href="#" class="btn-secondary" id="btn_data2">데이터 다운로드 2</a></li>
                 <li role="presentation"><a href="#" class="btn-secondary" id="btn_data3">데이터 다운로드 3</a></li>
@@ -97,16 +99,6 @@
 
                 <div class="row demo_row" style="clear: both;">
                     <div class="col-lg-10">
-                        <!--임의 수정
-                        <select class="form-control" name="query" id="query_list" onchange="query_changed(this)">
-                            <option value="{{ selected_question_id }}">{{ selected_question_text }}</option>
-                            {% for question in questions %}
-                                <option value="{{ question.id }}">{{ question.text }}</option>
-                            {% endfor %}
-                        </select>
-                        -->
-
-
                         <select class="form-control" name="query" id="query_list" onchange="query_changed2(this)">
                             <option value="{{ selected_question_id2 }}">{{ selected_question_text2 }}</option>
                             {% for question in questions2 %}
@@ -490,6 +482,7 @@
             </div>
 
         </div>
+        {% include "api_view.html" %}
 
         <div class="row">
             <div class="col-lg-10 col-lg-offset-1" id="page_data1" style="display: none;">
@@ -1061,10 +1054,9 @@ o개념 정의 문서가 존재하지 않는 경우<br>
                 $(this).tab('show')
             })
         });
-        //req 없이 쓸경우 - "./static/" + query_id + ".json" 사용
-        //req "{% static "graph2.json" %}"
+        "{% static "graph2.json" %}"
 
-        sigma.parsers.json("{% static "graph2.json" %}", {
+        s2 = sigma.parsers.json("{% static "graph2.json" %}", {
             renderers: [{
                 container: 'container', type: 'canvas',
                 settings: {
@@ -1076,7 +1068,6 @@ o개념 정의 문서가 존재하지 않는 경우<br>
                 }
             }],
             settings: {
-
                 minEdgeSize: 0.5,
                 maxEdgeSize: 2,
                 enableEdgeHovering: true,
@@ -1084,15 +1075,16 @@ o개념 정의 문서가 존재하지 않는 경우<br>
                 defaultEdgeHoverColor: '#000',
                 edgeHoverSizeRatio: 2,
                 edgeHoverExtremities: true,
-                autoRescale: false
+                autoRescale: true
             }
-        }, function (s) {
-            var edges = s.graph.edges();
-            s.startForceAtlas2({worker: true, barnesHutOptimize: false, slowDown: 10, gravity: 1});
+        }, function (s2) {
+            var edges = s2.graph.edges();
+            s2.startForceAtlas2({worker: true, barnesHutOptimize: false, slowDown: 10, gravity: 1});
             setTimeout(function () {
-                s.stopForceAtlas2()
+                s2.stopForceAtlas2()
             }, 1000);
-            var dragListener = sigma.plugins.dragNodes(s, s.renderers[0]);
+
+            var dragListener = sigma.plugins.dragNodes(s2, s2.renderers[0]);
             dragListener.bind('startdrag', function (event) {
                 console.log(event);
             });
